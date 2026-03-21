@@ -1,6 +1,11 @@
+"use client"
+
 import { Upload, Cpu, FileText } from "lucide-react"
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 export function HowItWorks() {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 })
+
   const steps = [
     {
       number: "01",
@@ -12,7 +17,7 @@ export function HowItWorks() {
       number: "02",
       icon: Cpu,
       title: "Clasificación multimodal",
-      description: "Spectra clasifica el subtipo clínico y calcula probabilidades de respuesta para cada tratamiento: SSRI, SNRI, bupropion y antiinflamatorio adjunto."
+      description: "Spectra clasifica el subtipo clínico y calcula probabilidades de respuesta para cada tratamiento: SSRI, SNRI, bupropión y antiinflamatorio adjunto."
     },
     {
       number: "03",
@@ -23,9 +28,9 @@ export function HowItWorks() {
   ]
 
   return (
-    <section id="how-it-works" className="py-24 bg-background">
+    <section id="how-it-works" className="py-24 bg-background" ref={ref as React.RefObject<HTMLElement>}>
       <div className="max-w-5xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <p className="text-primary font-medium text-sm uppercase tracking-widest mb-4">
             Cómo funciona
           </p>
@@ -35,9 +40,13 @@ export function HowItWorks() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {steps.map((step) => (
-            <div key={step.number} className="relative">
-              <div className="bg-card border border-border rounded-xl p-8 h-full hover:border-primary transition-colors">
+          {steps.map((step, index) => (
+            <div 
+              key={step.number} 
+              className={`relative transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
+              style={{ transitionDelay: `${(index + 1) * 150}ms` }}
+            >
+              <div className="bg-card border border-border rounded-xl p-8 h-full hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <span className="text-6xl font-bold text-primary/20 absolute top-4 right-6">
                   {step.number}
                 </span>

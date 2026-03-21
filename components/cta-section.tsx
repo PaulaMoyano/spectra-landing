@@ -6,12 +6,10 @@ export function CTASection() {
     <section id="cta" className="py-24 bg-secondary">
       <div className="max-w-3xl mx-auto px-6 text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-secondary-foreground text-balance mb-6">
-          Queres ver Spectra
-          <br />
-          en accion?
+          {"¿Querés ver Spectra en acción?"}
         </h2>
         <p className="text-lg text-accent mb-10">
-          EEG + panel inflamatorio + farmacogenomica. Una inversion que cambia el resultado.
+          EEG + panel inflamatorio + farmacogenómica. Una inversión que cambia el resultado.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -19,13 +17,13 @@ export function CTASection() {
             Solicitar acceso demo
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-          <Button size="lg" variant="outline" className="border-accent text-secondary-foreground hover:bg-accent/20">
+          <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/20 font-semibold">
             Contactar equipo
           </Button>
         </div>
 
         <p className="mt-8 text-sm text-accent/70">
-          Actualmente en fase piloto. Solicita acceso para tu clinica o institucion.
+          Actualmente en fase piloto. Solicitá acceso para tu clínica o institución.
         </p>
       </div>
     </section>

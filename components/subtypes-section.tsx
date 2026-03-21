@@ -1,7 +1,12 @@
+"use client"
+
 import { Badge } from "@/components/ui/badge"
 import { Flame, Brain, Dna, Layers } from "lucide-react"
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 export function SubtypesSection() {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.15 })
+
   const subtypes = [
     {
       icon: Flame,
@@ -10,7 +15,7 @@ export function SubtypesSection() {
       badgeColor: "bg-red-500/10 text-red-600 border-red-500/20",
       criteria: "CRP > 3 mg/L + IL-6 elevada",
       outcome: "SSRIs fallan en el 73% de los casos",
-      recommendation: "Primera línea: bupropion o antiinflamatorio adjunto"
+      recommendation: "Primera línea: bupropión o antiinflamatorio adjunto"
     },
     {
       icon: Brain,
@@ -42,9 +47,9 @@ export function SubtypesSection() {
   ]
 
   return (
-    <section className="py-24 bg-muted">
+    <section className="py-24 bg-muted" ref={ref as React.RefObject<HTMLElement>}>
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <p className="text-primary font-medium text-sm uppercase tracking-widest mb-4">
             Subtipos clínicos
           </p>
@@ -54,10 +59,11 @@ export function SubtypesSection() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {subtypes.map((subtype) => (
+          {subtypes.map((subtype, index) => (
             <div
               key={subtype.name}
-              className="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-shadow"
+              className={`bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-primary/50 transition-all duration-500 cursor-default ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
+              style={{ transitionDelay: `${(index + 1) * 100}ms` }}
             >
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">

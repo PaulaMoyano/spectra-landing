@@ -46,7 +46,7 @@ export function ProblemSection() {
               Alta tasa de fallo
             </h3>
             <p className="text-accent leading-relaxed">
-              El 50% de los pacientes con depresion mayor no responde al primer antidepresivo que le recetan.
+              El 50% de los pacientes con depresión mayor no responde al primer antidepresivo que le recetan.
             </p>
           </div>
 
@@ -55,10 +55,10 @@ export function ProblemSection() {
               <Clock className="w-8 h-8 text-primary" />
             </div>
             <h3 className="text-xl font-semibold text-secondary-foreground mb-3">
-              Anos de espera
+              Años de espera
             </h3>
             <p className="text-accent leading-relaxed">
-              El proceso de encontrar el tratamiento correcto tarda en promedio 2 a 3 anos y requiere probar 3 o 4 farmacos distintos.
+              El proceso de encontrar el tratamiento correcto tarda en promedio 2 a 3 años y requiere probar 3 o 4 fármacos distintos.
             </p>
           </div>
 
@@ -67,10 +67,10 @@ export function ProblemSection() {
               <FlaskConical className="w-8 h-8 text-primary" />
             </div>
             <h3 className="text-xl font-semibold text-secondary-foreground mb-3">
-              Falta de datos biologicos
+              Falta de datos biológicos
             </h3>
             <p className="text-accent leading-relaxed">
-              No es falta de opciones — es falta de informacion biologica para elegir la correcta desde el principio.
+              No es falta de opciones — es falta de información biológica para elegir la correcta desde el principio.
             </p>
           </div>
         </div>
@@ -78,7 +78,7 @@ export function ProblemSection() {
         {/* Interactive Timeline */}
         <div className="bg-[#0A1929] rounded-2xl p-8 md:p-12">
           <p className="text-accent text-xs uppercase tracking-widest mb-8">
-            Recorrido tipico hasta respuesta — 2.5 anos
+            Recorrido típico hasta respuesta — 2.5 años
           </p>
 
           {/* Progress bar */}
@@ -155,17 +155,17 @@ export function ProblemSection() {
             <p className="text-secondary-foreground leading-relaxed">
               {showSpectra ? (
                 <>
-                  <span className="text-primary font-semibold">Bupropion prescripto como primera linea.</span>
-                  {" "}El perfil inflamatorio detectado en la evaluacion inicial indicaba alta probabilidad de respuesta a este farmaco.
+                  <span className="text-primary font-semibold">Bupropión prescripto como primera línea.</span>
+                  {" "}El perfil inflamatorio detectado en la evaluación inicial indicaba alta probabilidad de respuesta a este fármaco.
                   <span className="block mt-2 text-accent text-sm">
-                    Tiempo hasta respuesta: ~6 semanas en lugar de 2.5 anos.
+                    Tiempo hasta respuesta: ~6 semanas en lugar de 2.5 años.
                   </span>
                 </>
               ) : (
                 <>
-                  Perfil inflamatorio detectado en la evaluacion inicial → Bupropion prescripto como primera linea.
+                  Perfil inflamatorio detectado en la evaluación inicial → Bupropión prescripto como primera línea.
                   <span className="block mt-2 text-accent text-sm">
-                    Click para ver mas detalles
+                    Click para ver más detalles
                   </span>
                 </>
               )}
