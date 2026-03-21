@@ -23,7 +23,7 @@ export function HowItWorks() {
   ]
 
   return (
-    <section className="py-24 bg-background">
+    <section id="how-it-works" className="py-24 bg-background">
       <div className="max-w-5xl mx-auto px-6">
         <div className="text-center mb-16">
           <p className="text-primary font-medium text-sm uppercase tracking-widest mb-4">
