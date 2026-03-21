@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button"
 import { SpectraLogo } from "./spectra-logo"
 import { Play, ArrowRight } from "lucide-react"
 import { useEffect, useState } from "react"
+import { useLanguage } from "@/contexts/language-context"
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const { t } = useLanguage()
 
   useEffect(() => {
     setIsLoaded(true)
@@ -28,24 +30,22 @@ export function Hero() {
         <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/30 bg-secondary/50 mb-10 transition-all duration-700 delay-100 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
           <span className="text-primary font-medium text-xs uppercase tracking-widest">
-            Clinical Decision Support
+            {t("hero.badge")}
           </span>
         </div>
 
         {/* Main headline - styled like the reference */}
         <h1 className={`text-5xl md:text-6xl lg:text-7xl font-bold text-secondary-foreground leading-[1.1] mb-8 transition-all duration-1000 delay-200 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <span className={`inline-block transition-all duration-700 delay-300 ${isLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}>Biomarker-driven</span>
+          <span className={`inline-block transition-all duration-700 delay-300 ${isLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}>{t("hero.title1")}</span>
           <br />
-          <span className={`font-serif italic text-primary inline-block transition-all duration-700 delay-500 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>antidepressant</span>
+          <span className={`font-serif italic text-primary inline-block transition-all duration-700 delay-500 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>{t("hero.title2")}</span>
           <br />
-          <span className={`inline-block transition-all duration-700 delay-700 ${isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>treatment</span>
+          <span className={`inline-block transition-all duration-700 delay-700 ${isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>{t("hero.title3")}</span>
         </h1>
 
         {/* Subtitle */}
         <p className={`text-lg md:text-xl text-accent max-w-2xl mb-12 leading-relaxed transition-all duration-700 delay-[800ms] ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          Spectra predice qué antidepresivo tiene mayor probabilidad de funcionar 
-          para cada paciente, integrando EEG, biomarcadores inflamatorios y 
-          farmacogenómica con explicabilidad SHAP.
+          {t("hero.subtitle")}
         </p>
 
         {/* CTA Buttons */}
@@ -56,7 +56,7 @@ export function Hero() {
             onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
           >
             <Play className="mr-2 h-4 w-4" />
-            VER DEMO
+            {t("hero.cta1")}
           </Button>
           <Button 
             size="lg" 
@@ -64,7 +64,7 @@ export function Hero() {
             className="text-accent hover:text-secondary-foreground hover:bg-accent/10 font-medium h-14"
             onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            CÓMO FUNCIONA
+            {t("hero.cta2")}
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>

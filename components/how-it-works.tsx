@@ -2,28 +2,30 @@
 
 import { Upload, Cpu, FileText } from "lucide-react"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import { useLanguage } from "@/contexts/language-context"
 
 export function HowItWorks() {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 })
+  const { t } = useLanguage()
 
   const steps = [
     {
       number: "01",
       icon: Upload,
-      title: "Ingreso de datos",
-      description: "El médico ingresa el perfil del paciente: resultados del panel de sangre (CRP, IL-6), features EEG pre-computadas, status CYP y HAMD baseline."
+      titleKey: "how.step1.title",
+      descKey: "how.step1.desc"
     },
     {
       number: "02",
       icon: Cpu,
-      title: "Clasificación multimodal",
-      description: "Spectra clasifica el subtipo clínico y calcula probabilidades de respuesta para cada tratamiento: SSRI, SNRI, bupropión y antiinflamatorio adjunto."
+      titleKey: "how.step2.title",
+      descKey: "how.step2.desc"
     },
     {
       number: "03",
       icon: FileText,
-      title: "Informe explicable",
-      description: "El médico recibe el subtipo asignado, gauges de probabilidad por fármaco, waterfall SHAP con features relevantes y un párrafo clínico explicativo."
+      titleKey: "how.step3.title",
+      descKey: "how.step3.desc"
     }
   ]
 
@@ -32,10 +34,10 @@ export function HowItWorks() {
       <div className="max-w-5xl mx-auto px-6">
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <p className="text-primary font-medium text-sm uppercase tracking-widest mb-4">
-            Cómo funciona
+            {t("how.title")}
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-secondary text-balance">
-            Tres pasos hacia el tratamiento correcto
+            {t("how.subtitle")}
           </h2>
         </div>
 
@@ -54,10 +56,10 @@ export function HowItWorks() {
                   <step.icon className="w-7 h-7 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold text-secondary mb-3">
-                  {step.title}
+                  {t(step.titleKey)}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  {step.description}
+                  {t(step.descKey)}
                 </p>
               </div>
             </div>

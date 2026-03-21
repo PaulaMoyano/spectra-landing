@@ -1,6 +1,11 @@
+"use client"
+
 import { SpectraLogo } from "./spectra-logo"
+import { useLanguage } from "@/contexts/language-context"
 
 export function Footer() {
+  const { t } = useLanguage()
+  
   return (
     <footer className="py-12 bg-background border-t border-border">
       <div className="max-w-5xl mx-auto px-6">
@@ -15,15 +20,14 @@ export function Footer() {
           </p>
 
           <div className="flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#" className="hover:text-primary transition-colors">Ciencia</a>
-            <a href="#" className="hover:text-primary transition-colors">Equipo</a>
-            <a href="#" className="hover:text-primary transition-colors">Contacto</a>
+            <a href="#" className="hover:text-primary transition-colors">{t("footer.privacy")}</a>
+            <a href="#" className="hover:text-primary transition-colors">{t("footer.terms")}</a>
+            <a href="#" className="hover:text-primary transition-colors">{t("footer.contact")}</a>
           </div>
         </div>
 
         <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>Referencias: STAR*D Study, EMBARC Dataset (N=309), Li et al. 2025</p>
-          <p className="mt-2">© 2026 Spectra. Herramienta de apoyo a la decisión clínica.</p>
+          <p>{t("footer.copyright")}</p>
         </div>
       </div>
     </footer>

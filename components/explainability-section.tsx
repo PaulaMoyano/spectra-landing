@@ -1,40 +1,75 @@
 "use client"
 
 import { useState } from "react"
-
-const shapFeatures = [
-  { name: "CRP elevada", value: 0.35, positive: false, detail: "Proteina C-reactiva elevada (>3 mg/L) es un marcador de inflamacion sistemica asociado a menor respuesta a SSRIs." },
-  { name: "IL-6 > 2.5 pg/mL", value: 0.28, positive: false, detail: "Interleucina-6 elevada sugiere activacion inmune que puede interferir con la neurotransmision serotoninergica." },
-  { name: "Asimetria alfa frontal", value: 0.22, positive: true, detail: "La asimetria alfa frontal derecha > izquierda predice mejor respuesta a farmacos activadores como bupropion." },
-  { name: "CYP2D6 normal", value: 0.15, positive: true, detail: "Metabolizador normal de CYP2D6 permite dosis estandar sin ajustes por farmacogenetica." },
-  { name: "Theta frontal bajo", value: 0.12, positive: true, detail: "Theta frontal bajo correlaciona con menor desregulacion emocional y mejor pronostico general." },
-  { name: "HAMD baseline", value: 0.08, positive: false, detail: "Puntaje HAMD elevado indica depresion severa, lo cual puede requerir tratamiento combinado." },
-]
-
-const patientProfiles = [
-  { 
-    name: "Perfil Inflamatorio", 
-    features: [0.35, 0.28, 0.10, 0.15, 0.08, 0.20],
-    recommendation: "Bupropion + antiinflamatorio adjunto",
-    confidence: 87
-  },
-  { 
-    name: "Perfil EEG Respondedor", 
-    features: [0.08, 0.05, 0.32, 0.15, 0.28, 0.10],
-    recommendation: "SSRI (escitalopram o sertralina)",
-    confidence: 91
-  },
-  { 
-    name: "Metabolizador Lento", 
-    features: [0.10, 0.08, 0.15, 0.40, 0.12, 0.15],
-    recommendation: "Dosis reducida o farmaco sin CYP2D6",
-    confidence: 84
-  },
-]
+import { useLanguage } from "@/contexts/language-context"
 
 export function ExplainabilitySection() {
   const [selectedFeature, setSelectedFeature] = useState<number | null>(null)
   const [selectedProfile, setSelectedProfile] = useState(0)
+  const { t, language } = useLanguage()
+
+  const shapFeatures = [
+    { 
+      nameEs: "CRP elevada", nameEn: "Elevated CRP",
+      value: 0.35, positive: false, 
+      detailEs: "Proteína C-reactiva elevada (>3 mg/L) es un marcador de inflamación sistémica asociado a menor respuesta a SSRIs.",
+      detailEn: "Elevated C-reactive protein (>3 mg/L) is a systemic inflammation marker associated with lower SSRI response."
+    },
+    { 
+      nameEs: "IL-6 > 2.5 pg/mL", nameEn: "IL-6 > 2.5 pg/mL",
+      value: 0.28, positive: false, 
+      detailEs: "Interleucina-6 elevada sugiere activación inmune que puede interferir con la neurotransmisión serotoninérgica.",
+      detailEn: "Elevated Interleukin-6 suggests immune activation that may interfere with serotonergic neurotransmission."
+    },
+    { 
+      nameEs: "Asimetría alfa frontal", nameEn: "Frontal alpha asymmetry",
+      value: 0.22, positive: true, 
+      detailEs: "La asimetría alfa frontal derecha > izquierda predice mejor respuesta a fármacos activadores como bupropión.",
+      detailEn: "Right > left frontal alpha asymmetry predicts better response to activating drugs like bupropion."
+    },
+    { 
+      nameEs: "CYP2D6 normal", nameEn: "CYP2D6 normal",
+      value: 0.15, positive: true, 
+      detailEs: "Metabolizador normal de CYP2D6 permite dosis estándar sin ajustes por farmacogenética.",
+      detailEn: "Normal CYP2D6 metabolizer allows standard dosing without pharmacogenetic adjustments."
+    },
+    { 
+      nameEs: "Theta frontal bajo", nameEn: "Low frontal theta",
+      value: 0.12, positive: true, 
+      detailEs: "Theta frontal bajo correlaciona con menor desregulación emocional y mejor pronóstico general.",
+      detailEn: "Low frontal theta correlates with less emotional dysregulation and better overall prognosis."
+    },
+    { 
+      nameEs: "HAMD baseline", nameEn: "HAMD baseline",
+      value: 0.08, positive: false, 
+      detailEs: "Puntaje HAMD elevado indica depresión severa, lo cual puede requerir tratamiento combinado.",
+      detailEn: "Elevated HAMD score indicates severe depression, which may require combination treatment."
+    },
+  ]
+
+  const patientProfiles = [
+    { 
+      nameKey: "explainability.inflammatory", 
+      features: [0.35, 0.28, 0.10, 0.15, 0.08, 0.20],
+      recommendationEs: "Bupropión + antiinflamatorio adjunto",
+      recommendationEn: "Bupropion + adjunct anti-inflammatory",
+      confidence: 87
+    },
+    { 
+      nameKey: "explainability.eegResponder", 
+      features: [0.08, 0.05, 0.32, 0.15, 0.28, 0.10],
+      recommendationEs: "SSRI (escitalopram o sertralina)",
+      recommendationEn: "SSRI (escitalopram or sertraline)",
+      confidence: 91
+    },
+    { 
+      nameKey: "explainability.slowMetabolizer", 
+      features: [0.10, 0.08, 0.15, 0.40, 0.12, 0.15],
+      recommendationEs: "Dosis reducida o fármaco sin CYP2D6",
+      recommendationEn: "Reduced dose or non-CYP2D6 drug",
+      confidence: 84
+    },
+  ]
 
   const currentProfile = patientProfiles[selectedProfile]
   const displayFeatures = shapFeatures.map((f, i) => ({
@@ -51,47 +86,18 @@ export function ExplainabilitySection() {
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <div>
             <p className="text-primary font-medium text-sm uppercase tracking-widest mb-4">
-              Explicabilidad
+              {t("explainability.title")}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-secondary-foreground text-balance mb-6">
-              No solo una recomendacion — el razonamiento completo
+              {t("explainability.subtitle")}
             </h2>
-            <p className="text-accent leading-relaxed mb-6">
-              Lo que diferencia a Spectra es la <span className="text-primary font-semibold">explicabilidad</span>: 
-              el psiquiatra no recibe solo una recomendacion, recibe el razonamiento detras de ella.
-            </p>
-            <ul className="space-y-4 mb-8">
-              <li className="flex items-start gap-3">
-                <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="w-2 h-2 rounded-full bg-primary" />
-                </span>
-                <span className="text-accent">
-                  <strong className="text-secondary-foreground">Waterfall SHAP:</strong> visualizacion de que features empujaron la prediccion y en que direccion
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="w-2 h-2 rounded-full bg-primary" />
-                </span>
-                <span className="text-accent">
-                  <strong className="text-secondary-foreground">Resumen clinico:</strong> parrafo en lenguaje natural generado automaticamente
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="w-2 h-2 rounded-full bg-primary" />
-                </span>
-                <span className="text-accent">
-                  <strong className="text-secondary-foreground">Transparencia total:</strong> el medico decide mejor cuando entiende el porque
-                </span>
-              </li>
-            </ul>
 
             {/* Profile selector */}
+            <p className="text-accent mb-4">{t("explainability.selectProfile")}</p>
             <div className="flex flex-wrap gap-2">
               {patientProfiles.map((profile, i) => (
                 <button
-                  key={profile.name}
+                  key={profile.nameKey}
                   onClick={() => {
                     setSelectedProfile(i)
                     setSelectedFeature(null)
@@ -102,7 +108,7 @@ export function ExplainabilitySection() {
                       : "bg-accent/20 text-accent hover:bg-accent/30"
                   }`}
                 >
-                  {profile.name}
+                  {t(profile.nameKey)}
                 </button>
               ))}
             </div>
@@ -111,15 +117,16 @@ export function ExplainabilitySection() {
           {/* Interactive SHAP Waterfall visualization */}
           <div className="bg-card rounded-xl p-6 border border-border">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="font-semibold text-secondary">Contribucion de features (SHAP)</h3>
+              <h3 className="font-semibold text-secondary">{t("explainability.shapTitle")}</h3>
               <span className="text-xs text-primary font-medium">
-                Confianza: {currentProfile.confidence}%
+                {t("explainability.confidence")}: {currentProfile.confidence}%
               </span>
             </div>
+            <p className="text-xs text-muted-foreground mb-4">{t("explainability.clickBar")}</p>
             <div className="space-y-3">
               {displayFeatures.map((feature, index) => (
                 <button
-                  key={feature.name}
+                  key={language === "es" ? feature.nameEs : feature.nameEn}
                   onClick={() => setSelectedFeature(selectedFeature === index ? null : index)}
                   className={`w-full flex items-center gap-3 p-2 rounded-lg transition-all ${
                     selectedFeature === index 
@@ -127,7 +134,9 @@ export function ExplainabilitySection() {
                       : "hover:bg-muted/50"
                   }`}
                 >
-                  <span className="text-xs text-muted-foreground w-32 text-left truncate">{feature.name}</span>
+                  <span className="text-xs text-muted-foreground w-32 text-left truncate">
+                    {language === "es" ? feature.nameEs : feature.nameEn}
+                  </span>
                   <div className="flex-1 h-6 bg-muted rounded relative flex items-center">
                     <div
                       className={`h-4 rounded transition-all duration-500 ${feature.positive ? 'bg-primary' : 'bg-red-400'}`}
@@ -148,7 +157,7 @@ export function ExplainabilitySection() {
               {selectedFeature !== null && (
                 <div className="p-4 bg-muted rounded-lg border-l-4 border-primary">
                   <p className="text-sm text-secondary">
-                    {shapFeatures[selectedFeature].detail}
+                    {language === "es" ? shapFeatures[selectedFeature].detailEs : shapFeatures[selectedFeature].detailEn}
                   </p>
                 </div>
               )}
@@ -156,10 +165,10 @@ export function ExplainabilitySection() {
 
             <div className="mt-6 pt-4 border-t border-border">
               <p className="text-sm text-muted-foreground mb-2">
-                <span className="font-medium text-secondary">Recomendacion:</span>
+                <span className="font-medium text-secondary">{t("explainability.prediction")}</span>
               </p>
               <p className="text-primary font-semibold">
-                {currentProfile.recommendation}
+                {language === "es" ? currentProfile.recommendationEs : currentProfile.recommendationEn}
               </p>
             </div>
           </div>

@@ -2,17 +2,19 @@
 
 import { useState } from "react"
 import { X, Check, AlertTriangle, Clock, FlaskConical } from "lucide-react"
-
-const treatments = [
-  { id: 1, name: "Escitalopram", dose: "10mg", status: "failed", message: "Sin respuesta" },
-  { id: 2, name: "Sertralina", dose: "50mg", status: "adverse", message: "Efectos adversos" },
-  { id: 3, name: "Venlafaxina", dose: "75mg", status: "partial", message: "Respuesta parcial" },
-  { id: 4, name: "Bupropion", dose: "150mg", status: "success", message: "Respuesta" },
-]
+import { useLanguage } from "@/contexts/language-context"
 
 export function ProblemSection() {
   const [activeStep, setActiveStep] = useState(3)
   const [showSpectra, setShowSpectra] = useState(false)
+  const { t } = useLanguage()
+
+  const treatments = [
+    { id: 1, name: "Escitalopram", dose: "10mg", status: "failed", messageKey: "problem.noResponse" },
+    { id: 2, name: "Sertralina", dose: "50mg", status: "adverse", messageKey: "problem.adverseEffects" },
+    { id: 3, name: "Venlafaxina", dose: "75mg", status: "partial", messageKey: "problem.partialResponse" },
+    { id: 4, name: "Bupropión", dose: "150mg", status: "success", messageKey: "problem.response" },
+  ]
 
   const handleTreatmentClick = (index: number) => {
     setActiveStep(index)
@@ -22,17 +24,17 @@ export function ProblemSection() {
     setShowSpectra(!showSpectra)
   }
 
-  const progress = ((activeStep + 1) / treatments.length) * 75 // Max 75% until full response
+  const progress = ((activeStep + 1) / treatments.length) * 75
 
   return (
     <section className="py-24 bg-secondary">
       <div className="max-w-5xl mx-auto px-6">
         <div className="text-center mb-16">
           <p className="text-primary font-medium text-sm uppercase tracking-widest mb-4">
-            El problema
+            {t("problem.title")}
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-secondary-foreground text-balance">
-            Los psiquiatras prescriben por ensayo y error
+            {t("problem.subtitle")}
           </h2>
         </div>
 
@@ -43,10 +45,10 @@ export function ProblemSection() {
               <AlertTriangle className="w-8 h-8 text-primary" />
             </div>
             <h3 className="text-xl font-semibold text-secondary-foreground mb-3">
-              Alta tasa de fallo
+              {t("problem.card1.title")}
             </h3>
             <p className="text-accent leading-relaxed">
-              El 50% de los pacientes con depresión mayor no responde al primer antidepresivo que le recetan.
+              {t("problem.card1.desc")}
             </p>
           </div>
 
@@ -55,10 +57,10 @@ export function ProblemSection() {
               <Clock className="w-8 h-8 text-primary" />
             </div>
             <h3 className="text-xl font-semibold text-secondary-foreground mb-3">
-              Años de espera
+              {t("problem.card2.title")}
             </h3>
             <p className="text-accent leading-relaxed">
-              El proceso de encontrar el tratamiento correcto tarda en promedio 2 a 3 años y requiere probar 3 o 4 fármacos distintos.
+              {t("problem.card2.desc")}
             </p>
           </div>
 
@@ -67,10 +69,10 @@ export function ProblemSection() {
               <FlaskConical className="w-8 h-8 text-primary" />
             </div>
             <h3 className="text-xl font-semibold text-secondary-foreground mb-3">
-              Falta de datos biológicos
+              {t("problem.card3.title")}
             </h3>
             <p className="text-accent leading-relaxed">
-              No es falta de opciones — es falta de información biológica para elegir la correcta desde el principio.
+              {t("problem.card3.desc")}
             </p>
           </div>
         </div>
@@ -78,7 +80,7 @@ export function ProblemSection() {
         {/* Interactive Timeline */}
         <div className="bg-[#0A1929] rounded-2xl p-8 md:p-12">
           <p className="text-accent text-xs uppercase tracking-widest mb-8">
-            Recorrido típico hasta respuesta — 2.5 años
+            {t("problem.timeline")}
           </p>
 
           {/* Progress bar */}
@@ -94,9 +96,9 @@ export function ProblemSection() {
               style={{ left: `${progress}%` }}
             />
             <div className="flex justify-between mt-3 text-sm">
-              <span className="text-accent">Inicio</span>
-              <span className="text-orange-400">&#8593; Ahora</span>
-              <span className="text-accent">Remision posible</span>
+              <span className="text-accent">{t("problem.start")}</span>
+              <span className="text-orange-400">&#8593; {t("problem.now")}</span>
+              <span className="text-accent">{t("problem.remission")}</span>
             </div>
           </div>
 
@@ -120,7 +122,7 @@ export function ProblemSection() {
                   } hover:scale-105 hover:border-primary/50 cursor-pointer`}
                 >
                   <p className="text-accent text-xs uppercase tracking-wider mb-2">
-                    Intento {treatment.id}
+                    {t("problem.attempt")} {treatment.id}
                   </p>
                   <p className="text-secondary-foreground font-semibold mb-1">
                     {treatment.name} <span className="font-normal">{treatment.dose}</span>
@@ -133,7 +135,7 @@ export function ProblemSection() {
                     ) : (
                       <X className="w-3 h-3" />
                     )}
-                    {treatment.message}
+                    {t(treatment.messageKey)}
                   </p>
                 </button>
               )
@@ -150,22 +152,22 @@ export function ProblemSection() {
             }`}
           >
             <p className="text-primary text-xs uppercase tracking-wider mb-2 font-medium">
-              Con Spectra
+              {t("problem.withSpectra")}
             </p>
             <p className="text-secondary-foreground leading-relaxed">
               {showSpectra ? (
                 <>
-                  <span className="text-primary font-semibold">Bupropión prescripto como primera línea.</span>
-                  {" "}El perfil inflamatorio detectado en la evaluación inicial indicaba alta probabilidad de respuesta a este fármaco.
+                  <span className="text-primary font-semibold">{t("problem.spectraDetail1")}</span>
+                  {t("problem.spectraDetail2")}
                   <span className="block mt-2 text-accent text-sm">
-                    Tiempo hasta respuesta: ~6 semanas en lugar de 2.5 años.
+                    {t("problem.spectraTime")}
                   </span>
                 </>
               ) : (
                 <>
-                  Perfil inflamatorio detectado en la evaluación inicial → Bupropión prescripto como primera línea.
+                  {t("problem.spectraSummary")}
                   <span className="block mt-2 text-accent text-sm">
-                    Click para ver más detalles
+                    {t("problem.clickMore")}
                   </span>
                 </>
               )}
