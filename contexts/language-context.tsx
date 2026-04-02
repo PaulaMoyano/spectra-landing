@@ -112,7 +112,7 @@ const translations: Record<Language, Record<string, string>> = {
     "cta.pilot": "Actualmente en fase piloto. Solicitá acceso para tu clínica o institución.",
     
     // Footer
-    "footer.copyright": "© 2024 Spectra. Herramienta de apoyo a la decisión clínica.",
+    "footer.copyright": "© 2026 Spectra. Herramienta de apoyo a la decisión clínica.",
     "footer.privacy": "Privacidad",
     "footer.terms": "Términos",
     "footer.contact": "Contacto",
@@ -218,7 +218,7 @@ const translations: Record<Language, Record<string, string>> = {
     "cta.pilot": "Currently in pilot phase. Request access for your clinic or institution.",
     
     // Footer
-    "footer.copyright": "© 2024 Spectra. Clinical decision support tool.",
+    "footer.copyright": "© 2026 Spectra. Clinical decision support tool.",
     "footer.privacy": "Privacy",
     "footer.terms": "Terms",
     "footer.contact": "Contact",
